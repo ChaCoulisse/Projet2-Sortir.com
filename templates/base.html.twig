@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0 ">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> {% block title  %}Sortir.com ! {% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Tokyo+Zoo&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <link rel="icon" href="{{ asset('img/logo_bulle.png') }}">
+
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 class="logo"><a href="{{ path('main_home') }}"><img src="{{ asset('img/logo_bulle.png') }}" alt="Sortir.com!"></a></h1>
+        <h1 class="blockSortir">Sortir.com</h1>
+        <br>
+        <nav>{% include('inc/nav.html.twig') %}</nav>
+    </header>
+
+    <style>
+        body {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)), url("{{ asset('img/fond_ecran_bis.jpg') }}");
+        }
+    </style>
+
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+    <footer>
+        <div class="footer">&copy; {{ "now" | date("Y") }} Sortir.com !</div>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+
+    <div class="">
+        {% if app.user.id == user.id %}
+            <h2>Mon Profil</h2>
+        {% else %}
+            <h2>{{ user.userName }}</h2>
+        {% endif %}
+    </div>
+    <div class="">
+        <p>Nom : {{ user.lastname }}</p>
+        <p>Prénom : {{ user.firstname }}</p>
+        <p>Email : {{ user.email }}</p>
+        <p>Campus : {{ user.campus.name }}</p>
+    </div>
+    <div class="">
+        {% if app.user.id == user.id %}
+            <a href="{{ path('user_modify') }}">Modifier le profil</a>
+        {% endif %}
+    </div>
+    <div class="">
+        {% if app.user.id == user.id %}
+            <a href="{{ path('user_password') }}">Modifier le mot de passe</a>
+        {% endif %}
+    </div>
+    <div class="">
+        <a href="{{ path('main_home') }}">Retour</a>
+    </div>
+
+{% endblock %}

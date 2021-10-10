@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Utilisateur{% endblock %}
+
+{% block body %}
+
+    {{ form_start(editUserForm) }}
+    <div class="">
+        {{ form_row(editUserForm.userName) }}
+    </div>
+    <div class="">
+        {{ form_row(editUserForm.lastname) }}
+    </div>
+    <div class="">
+        {{ form_row(editUserForm.firstname) }}
+    </div>
+    <div class="">
+        {{ form_row(editUserForm.phone) }}
+    </div>
+    <div class="">
+        {{ form_row(editUserForm.email) }}
+    </div>
+    <div class="">
+        {{ form_row(editUserForm.campus) }}
+    </div>
+    <div class="">
+        {{ form_row(editUserForm.password) }}
+    </div>
+    <button type="submit">Enregistrer</button>
+    <div class="">
+        <a href="{{ path('user_profile', {'id': app.user.id}) }}">Retour</a>
+    </div>
+    {{ form_end(editUserForm) }}
+
+{% endblock %}

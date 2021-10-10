@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Afficher une sortie{% endblock %}
+
+{% block body %}
+    <h1>Afficher une sortie</h1>
+    {% for trip in tripDisplay%}
+        <div class="col-left">
+            <div class="espacement" class="col-left">
+                Nom de la sortie: {{trip.name }}
+            </div>
+            <div class="espacement" class="col-left">
+                Date et heure de la sortie: {{trip.startHour|date("d/m/Y h:i")}}
+            </div>
+            <div class="espacement" class="col-left">
+                Date limite d'inscription: {{trip.limitDate|date("d/m/Y") }}
+            </div>
+            <div class="espacement" class="col-left">
+                Nombre de places: {{trip.limitedPlace }}
+            </div>
+            <div class="espacement" class="col-left">
+                Durée: {{trip.duration |date("h:i") }}
+            </div>
+            <div class="espacement" class="col-left">
+                Description et infos: {{trip.infoTrip}}
+            </div>
+        </div>
+        <div class="col-right">
+            <div class="espacement" >
+                Campus: {{trip.campus.name}}
+            </div>
+            <div class="espacement">
+            </div>
+            <div class="espacement">
+                Lieu: {{trip.place.name}}
+            </div>
+            <div class="espacement">
+            </div>
+            <div class="espacement">
+                Rue: {{trip.place.street}}
+            </div>
+            <div class="espacement">
+                Code Postal: {{trip.place.city.zipCode }}
+            </div>
+            <div class="espacement">
+                Latitude: {{trip.place.latitude}}
+            </div>
+            <div class="espacement">
+                Longitude:{{trip.place.longitude}}
+            </div>
+        </div>
+    {% endfor %}
+    <br>
+    <table class="tableau-participants" >
+        <thead class="tableau-entete">
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+        </tr>
+        </thead>
+        <tbody class="table tr:nth-child(2n+1)" class="table tr:nth-child(2n+2)">
+        {% for participant in listParticipants %}
+            <tr>
+                <td>{{ participant.username }}</td>
+                <td><a href="{{ path('user_profile', {'id': app.user.id}) }}" title="Voir le profil" class='liens'> {{ participant.firstName}} {{ participant.lastName}} </a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une sortie{% endblock %}
+
+{% block body %}
+    <h1>Modifier une sortie</h1>
+    <div>
+        {{ form_row(tripForm.name) }}
+        {{ form_row(tripForm.startHour) }}
+        {{ form_row(tripForm.limitDate) }}
+        {{ form_row(tripForm.limitedPlace) }}
+        {{ form_row(tripForm.duration) }}
+        {{ form_row(tripForm.infoTrip) }}
+    </div>
+    <div>
+        {{ form_row(tripForm.campus) }}
+        {{ form_row(tripForm.city) }}
+        {{ form_row(tripForm.place) }}
+        <p>Rue : insérer la rue du lieu</p>
+        <p>Code Postal : insérer le CP du lieu</p>
+        <p>Latitude : insérer la latitude du lieu</p>
+        <p>Latitude : insérer la longitude du lieu</p>
+    </div>
+
+    <br>
+    <button type="submit" class="btn">Enregistrer</button>
+    <button type="submit" class="btn">Publier la sortie</button>
+    <button type="submit" class="btn">Supprimer la sortie</button>
+{#    <a href="{{ path('trip_delete') }}" title="Annuler">Annuler</a>#}
+  <a href="{{ path('trip_delete', {'id':trip.id}) title="Annuler">Afficher</a>
+{% endblock %}

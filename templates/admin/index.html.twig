@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord!{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h1>Création d'un compte</h1>
+
+    {{ form_start(registrationForm) }}
+    {{ form_widget(registrationForm) }}
+
+    <button type="submit" class="btn">Créer compte</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}

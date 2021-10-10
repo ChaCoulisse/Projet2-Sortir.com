@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une sortie{% endblock %}
+
+{% block body %}
+
+    <h1>Créer une sortie </h1>
+
+    {{ form_start(Trip1Type) }}
+    {{ form_start(CityFormType) }}
+    {{ form_start(PlaceFormType) }}
+
+    {{ form_widget(Trip1Type) }}
+    {{ form_widget(CityFormType) }}
+    {{ form_widget(PlaceFormType) }}
+    <button type="submit" class="a-button">Créer une sortie</button>
+
+    {% for error in field_errors(Trip1Type.name) %}
+        <div class="error">{{ error }}</div>
+    {% endfor %}
+    {% for error in field_errors(CityFormType.name) %}
+        <div class="error">{{ error }}</div>
+    {% endfor %}
+    {% for error in field_errors(PlaceFormType.name) %}
+        <div class="error">{{ error }}</div>
+    {% endfor %}
+
+
+    {{ form_end(PlaceFormType) }}
+    {{ form_end(CityFormType) }}
+    {{ form_end(Trip1Type) }}
+{% endblock %}

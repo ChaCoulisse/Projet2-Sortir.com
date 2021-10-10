@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annuler une sortie{% endblock %}
+
+{% block body %}
+    <h1>Annuler une sortie</h1>
+    {% for trip in tripDisplay %}
+<div>
+    Nom de la sortie: {{trip.name }}
+    <br>
+    Date de la sortie: {{trip.startHour|date("d/m/Y")}}
+    <br>
+    Campus: {{trip.campus.name}}
+    <br>
+    Lieu: {{trip.place.name}} {{trip.place.street}} {{trip.place.city.zipCode }} {{trip.place.city.name}}
+    <br>
+    {{ form_row(tripDeleteForm.cancelReason) }}
+
+
+
+</div>
+{% endfor %}
+<br>
+    <button type="submit" class="btn">Enregistrer</button>
+    <a href="{{ path('main_home') }}" title="Annuler">Annuler</a>
+{% endblock %}

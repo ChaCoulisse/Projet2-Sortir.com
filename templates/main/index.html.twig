@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+    <div class="info-accueil">
+        <p>Date du jour : {{ 'now'|date("d/m/Y") }}</p>
+        <p>Participant : {{ app.user.username }}</p>
+    </div>
+
+    {{ form_start(searchTripForm) }}
+    <div class="filtre-recherche">
+        <div>
+            <h3>Filtrer les sorties</h3>
+            {{ form_row(searchTripForm.campus) }}
+            {{ form_row(searchTripForm.name) }}
+            <div class="date">
+                {{ form_row(searchTripForm.start) }}
+            </div>
+            <div class="date">
+                {{ form_row(searchTripForm.end) }}
+            </div>
+        </div>
+        <div class="checkbox">
+            {{ form_row(searchTripForm.organizer) }}
+            {{ form_row(searchTripForm.participant) }}
+            {{ form_row(searchTripForm.notParticipant) }}
+            {{ form_row(searchTripForm.state) }}
+        </div>
+    </div>
+    <button type="submit" class="a-button">Rechercher</button>
+    {{ form_end(searchTripForm) }}
+
+    {#   <div class="scroll">#}
+    <table class="tableau-recherche" c>
+        <thead class="tableau-entete">
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clôture</th>
+            <th>Inscrits/places</th>
+            <th>Etat</th>
+            <th>Organisateur</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody class="table tr:nth-child(2n+1)" class="table tr:nth-child(2n+2)" >
+        {% for trip in tripList %}
+            <tr id="{{ trip.id }}">
+                <td>{{ trip.name }}</td>
+                <td>{{ trip.startHour|date("d/m/Y h:i") }}</td>
+                <td>{{ trip.limitDate|date("d/m/Y h:i") }}</td>
+                <td>{{ trip.participant|length }} / {{ trip.limitedPlace }}</td>
+                <td>{{ trip.state.wording }}</td>
+                <td>{{ trip.organizer.username }}</td>
+                <td><a href="{{ path('trip_display', {'id': trip.id}) }}" title="Afficher" class="liens">Afficher</a>
+                    {% if trip.organizer.username == app.user.username and trip.state().getid()< 2%}
+                        <a href="{{ path('trip_edit',{'id': trip.id}) }}" title="Modifier" class="liens">Modifier</a>
+                        <a href="{{ path('trip_publishTrip',{'id': trip.id}) }}" title="Publier" class="liens">Publier</a>
+                        <a href="{{ path('trip_cancel', {'id': trip.id}) }}" title="Annuler" class="liens">Annuler</a>
+                    {% endif %}
+                    {% for participant in trip.participant %}
+                        {% if app.user.username == participant.username and trip.state().getid()< 6 %}
+                            <a href="{{ path('trip_giveUpParticipant', {'id_user': app.user.id, 'id_trip': trip.id}) }}" class="liens">Se désister</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if trip.state().getid()== 2 %}
+                        <a href="{{ path('trip_registerParticipant', {'id_user': app.user.id, 'id_trip': trip.id}) }}" class="liens">S'inscrire</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {#   </div>#}
+    <br>
+    <a href="{{ path('trip_create') }}" title="Créer une sortie" class="a-button">Créer une sortie</a>
+{% endblock %}
